@@ -1,5 +1,8 @@
 package com.develogical;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class QueryProcessor {
 
   public String process(String query) {
@@ -16,6 +19,29 @@ public class QueryProcessor {
       return "Goetz Botterweck";
     }
 
-    return "";
+    Pattern pattern1 = Pattern.compile("Which of the following numbers is the largest:(.*?)\\?");
+    Matcher matcher1 = pattern1.matcher(query);
+
+    Pattern pattern2 = Pattern.compile("What is (\\d+) plus (\\d+)\\?");
+    Matcher matcher2 = pattern2.matcher(query);
+
+    if (matcher1.find()) {
+      String[] numbersStr = matcher1.group(1).trim().split(", ");
+      int maxNum = Integer.MIN_VALUE;
+      for (String number : numbersStr) {
+        int num = Integer.parseInt(number);
+        if (num > maxNum) {
+          maxNum = num;
+        }
+      }
+      return String.valueOf(maxNum);
+    } else if (matcher2.find()) {
+      int num1 = Integer.parseInt(matcher2.group(1));
+      int num2 = Integer.parseInt(matcher2.group(2));
+      int sum = num1 + num2;
+      return String.valueOf(sum);
+    }
+
+    return ""; // Query not recognized
   }
 }
