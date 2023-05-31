@@ -41,7 +41,7 @@ public class WebServer {
   }
 
   private Integer portNumberToUse() {
-    return System.getenv("PORT") != null ? Integer.parseInt(System.getenv("PORT")) : 8080;
+    return System.getenv("PORT") != null ? Integer.parseInt(System.getenv("PORT")) : 8088;
   }
 
   static class Website extends HttpServlet {
