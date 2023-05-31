@@ -25,6 +25,10 @@ public class QueryProcessor {
     Pattern pattern2 = Pattern.compile("What is (\\d+) plus (\\d+)\\?");
     Matcher matcher2 = pattern2.matcher(query);
 
+    Pattern pattern3 = Pattern.compile("What is (\\d+) multiplied by (\\d+)\\?");
+    Matcher matcher3 = pattern3.matcher(query);
+
+
     if (matcher1.find()) {
       String[] numbersStr = matcher1.group(1).trim().split(", ");
       int maxNum = Integer.MIN_VALUE;
@@ -40,6 +44,11 @@ public class QueryProcessor {
       int num2 = Integer.parseInt(matcher2.group(2));
       int sum = num1 + num2;
       return String.valueOf(sum);
+    } else if (matcher3.find()) {
+      int num1 = Integer.parseInt(matcher3.group(1));
+      int num2 = Integer.parseInt(matcher3.group(2));
+      int product = num1 * num2;
+      return String.valueOf(product);
     }
 
     return ""; // Query not recognized
